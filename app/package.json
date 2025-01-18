@@ -1,0 +1,11 @@
+{
+  "name": "simple-project",
+  "version": "1.0.0",
+  "description": "Simple Node.js app for Jenkins and Docker build",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

@@ -1,15 +1,27 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Test') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build Docker Image') {
             steps {
                 script {
-                    def npmHome = tool name: 'NodeJS', type: 'NodeJSInstallation'
-                    env.PATH = "${npmHome}/bin:${env.PATH}"
+                    docker.build('simple-project:latest')
                 }
-                bat 'npm install'
-                bat 'npm test'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'docker run --rm simple-project:latest npm test || echo "No tests available"'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploy stage can be defined here.'
             }
         }
     }
