@@ -61,10 +61,11 @@ pipeline {
         stage('Setup Docker Compose') {
             steps {
                 script {
-                    // Docker Compose'u indir ve kurulumu yap
                     sh '''
-                    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                    chmod +x /usr/local/bin/docker-compose
+                    mkdir -p ~/bin
+                    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+                    chmod +x ~/bin/docker-compose
+                    export PATH=$PATH:~/bin
                     '''
                 }
             }
