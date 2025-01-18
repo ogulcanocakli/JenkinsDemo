@@ -1,16 +1,20 @@
-# Base image
-FROM node:18-alpine
+# Temel imaj olarak Node.js kullan
+FROM node:14
 
-# Working directory
+# Çalışma dizinini ayarla
 WORKDIR /usr/src/app
 
-# Copy package files and install dependencies
-COPY app/package*.json ./
+# package.json ve package-lock.json dosyalarını kopyala
+COPY package*.json ./
+
+# Bağımlılıkları yükle
 RUN npm install
 
-# Copy application code
-COPY app/ .
+# Uygulama kaynak kodunu kopyala
+COPY . .
 
-# Expose port and define start command
+# Uygulamanın çalışacağı portu belirt
 EXPOSE 3000
+
+# Uygulamayı başlat
 CMD ["npm", "start"]

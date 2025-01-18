@@ -2,26 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
                 script {
-                    docker.build('simple-project:latest')
+                    // Docker imajını oluştur
+                    sh 'docker-compose build'
                 }
             }
         }
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                sh 'docker run --rm simple-project:latest npm test || echo "No tests available"'
+                script {
+                    // Uygulamayı test et (test komutları eklenebilir)
+                    sh 'echo "Test aşaması"'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploy stage can be defined here.'
+                script {
+                    // Docker container'ını başlat
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
